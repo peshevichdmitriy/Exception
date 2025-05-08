@@ -76,11 +76,12 @@ public class Person implements Serializable {
             writer.writeObjects(P1, P2, "Hello, world!", 123);
 
             List<Object> objects = reader.readAllObjects();
-            for (Object obj : objects) {
-                System.out.println("Прочитано из файла: " + obj);
-            }
+            System.out.println("Прочитано из файла: ");
+            objects.stream()
+                    .forEach(System.out::println);
+
         } catch (MyException e) {
-            e.printStackTrace();
+            System.out.println("Ошибка при работе с файлом: "+e.getMessage());
         }
     }
 }
