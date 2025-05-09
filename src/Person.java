@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Person implements Serializable {
@@ -35,40 +34,9 @@ public class Person implements Serializable {
                 '}';
     }
 
-    // Класс записи
-    static class WriteObject {
-        public void writeObjects(Object... objects) throws MyException {
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("FILE.bin"))) {
-                for (Object obj : objects) {
-                    oos.writeObject(obj);
-                }
-                System.out.println("Данные успешно записаны");
-            } catch (IOException e) {
-                throw new MyException("Ошибка при записи", e);
-            }
-        }
-    }
-
-    // Класс чтения
-    static class ReadObject {
-        public List<Object> readAllObjects() throws MyException {
-        List<Object> result = new ArrayList<>();
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("FILE.bin"))) {
-                while (true) {
-                    Object obj = ois.readObject();
-                    result.add(obj);
-                }
-            } catch (EOFException e) {
-            } catch (IOException | ClassNotFoundException e) {
-                throw new MyException("Ошибка при чтении файла", e);
-            }
-            return result;
-        }
-    }
-
     public static void main(String[] args) {
-        WriteObject writer = new WriteObject();
-        ReadObject reader = new ReadObject();
+        ObjectWriter writer = new WriteObject();
+        ObjectReader reader = new ReadObject();
         Person P1 = new Person(22, "Misha");
         Person P2 = new Person(24, "Dima");
 
